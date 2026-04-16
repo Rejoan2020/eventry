@@ -1,8 +1,9 @@
 import React from 'react'
 import EventDetails from '../../components/EventDetails'
 
-export default function page() {
+export default async function page({params}) {
+  const {id} = await params; 
   return (
-    <EventDetails/>
+    <EventDetails id = {id}/>
   )
 }

@@ -30,7 +30,7 @@ export default async function HomePage() {
                             </div>
 
                             <div className="p-3">
-                                <Link href="/details/1" className="font-bold text-lg">{event.name}</Link>
+                                <Link href={`/details/${event.id}`} className="font-bold text-lg">{event.name}</Link>
 
                                 <p className="text-[#9C9C9C] text-sm mt-1">{event.location}</p>
                                 <div className="text-[#737373] text-sm mt-1">

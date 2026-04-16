@@ -1,34 +1,38 @@
 import React from 'react';
 import Image from 'next/image';
 import Buttons from './Buttons';
+import { getEvent } from '../db/queries';
 
-export default function EventDetails() {
+export default async function EventDetails({ id }) {
+    const event = await getEvent(id);
     return (
         <div>
             <section className="container">
                 <div className="bg-linear-to-b from-slate-200/20 to-slate-800/30">
-                    <Image
-                        width={950}
-                        height={500}
-                        src="/google-io-2023-1.png"
-                        alt="Event 1"
-                        className="h-112.5 mx-auto" />
+                    <div className="w-full h-96 relative">
+                        <Image
+                            src={event.imageUrl}
+                            alt={event.name}
+                            fill
+                            className="object-cover"
+                        />
+                    </div>
                 </div>
 
                 {/* <!-- Details --> */}
                 <div className="flex items-end">
                     <div className="flex-auto py-4">
-                        <h1 className="font-bold text-2xl">Google I/O Extended</h1>
-                        <p className="text-[#9C9C9C] text-base mt-1">Rangpur, Dhaka, Bangladesh, Rangpur, Bangladesh</p>
+                        <h1 className="font-bold text-2xl">{event.name}</h1>
+                        <p className="text-[#9C9C9C] text-base mt-1">{event.location}</p>
                         <div className="text-[#737373] text-sm mt-1">
-                            <span>1k Interested</span>
+                            <span>{event.interested_ids.length}</span>
                             <span>|</span>
-                            <span>40K Going</span>
+                            <span>{event.going_ids.length}</span>
                         </div>
                     </div>
 
                     <div className="w-full flex gap-4 mt-4 flex-1 ">
-                        <Buttons/>
+                        <Buttons />
                     </div>
                 </div>
             </section>
@@ -39,24 +43,13 @@ export default function EventDetails() {
                         <div className="w-full h-full bg-[#242526] p-6 rounded-lg">
                             <h2 className="font-bold text-2xl">Details</h2>
                             <div className="my-2 text-[#AEAEAE] space-y-4 prose lg:prose-lg max-w-none">
-                                <p className="">If you're passionate about data, coding, and everything tech-related, this is
-                                    an event you
-                                    won't want to
-                                    miss.
-                                    Whether you're a seasoned developer or just getting started, join us to discuss the latest trends in
-                                    data
-                                    analysis, programming, and software development. This is a fantastic opportunity to chat with fellow
-                                    tech
-                                    enthusiasts, exchange ideas, and maybe even spark some brilliant collaborations.
-                                    Hosted in the 2nd Floor Training Room at The Power Plant Business Incubator.</p>
-
-                                <ul className="">
-                                    <li>🎉 Free Tshirt</li>
-                                    <li>🕹️ Networking</li>
-                                    <li>🎯 Networking</li>
-                                    <li>📌 Free Foods</li>
-                                    <li>🚀 Free Wifi</li>
-                                </ul>
+                                <p className="">{event.details}</p>
+                                {event.swags && <ul>
+                                    {event.swags.map((item)=>  
+                                        <li key={item}>{item}</li>
+                                    )}
+                                    </ul>
+                                } 
                             </div>
                         </div>
                     </div>
@@ -68,7 +61,7 @@ export default function EventDetails() {
                                 referrerPolicy="no-referrer-when-downgrade"></iframe>
                         </div>
                         <div className="p-4">
-                            <p className="text-[#9C9C9C] text-base mt-1">Rangpur, Dhaka, Bangladesh, Rangpur, Bangladesh</p>
+                            <p className="text-[#9C9C9C] text-base mt-1">{event.location}</p>
                         </div>
                     </div>
                 </div>
