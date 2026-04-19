@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image';
 import Link from 'next/link';
+import LogInOut from '@/app/components/Auth/LogInOut'
 
 export default function Navbar() {
     return (
@@ -16,7 +17,7 @@ export default function Navbar() {
                     <li>About</li>
                     <li>Contact Us</li>
                     <li>
-                        <Link href={"/register"}>Register</Link>
+                        <LogInOut/>
                     </li>
                 </ul>
             </div>

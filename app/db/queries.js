@@ -15,4 +15,9 @@ async function createUser(user){
     return await userModel.create(user);
 }
 
-export {getAllEvents, getEvent, createUser};
+async function findUserWithCred(cred){
+    const user = await userModel.findOne(cred); 
+    return user;
+}
+
+export {getAllEvents, getEvent, createUser, findUserWithCred};

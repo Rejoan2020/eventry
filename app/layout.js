@@ -3,6 +3,7 @@ import "./globals.css";
 import Navbar from "./components/Landing/Navbar";
 import { dbConnect } from "@/services/mongo";
 import { getAllEvents } from "./db/queries";
+import { AuthProvider } from "./providers";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,9 +29,11 @@ export default async function RootLayout({ children }) {
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <Navbar/>
-        {children}
-        </body>
+        <AuthProvider>
+          <Navbar />
+          {children}
+        </AuthProvider>
+      </body>
     </html>
   );
 }
