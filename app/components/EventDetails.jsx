@@ -32,7 +32,7 @@ export default async function EventDetails({ id }) {
                     </div>
 
                     <div className="w-full flex gap-4 mt-4 flex-1 ">
-                        <Buttons />
+                        <Buttons eventId = {event._id.toString()} interested_ids = {event.interested_ids.map(id=>id.toString())}/>
                     </div>
                 </div>
             </section>

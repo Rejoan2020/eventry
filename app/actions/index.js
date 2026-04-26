@@ -1,6 +1,7 @@
 'use server'
 import { redirect } from "next/navigation";
-import { createUser, findUserWithCred } from "../db/queries";
+import { createUser, findUserWithCred, handleInterested } from "../db/queries";
+import { revalidatePath } from "next/cache";
 
 export async function registerUser(formData){
     const user = Object.fromEntries(formData);
@@ -14,5 +15,11 @@ export async function checkCred(formData){
     credentials.email = check.email;
     credentials.password = check.password;
     credentials.name = check.name;
+    credentials.id = check._id.toString();
     return credentials;
+}
+
+export async function interestedFeat(authId, eventId){
+    await handleInterested(authId, eventId);
+    revalidatePath('/')
 }

@@ -30,7 +30,7 @@ export default async function HomePage() {
                             </div>
 
                             <div className="p-3">
-                                <Link href={`/details/${event.id}`} className="font-bold text-lg">{event.name}</Link>
+                                <Link href={`/details/${event._id.toString()}`} className="font-bold text-lg">{event.name}</Link>
 
                                 <p className="text-[#9C9C9C] text-sm mt-1">{event.location}</p>
                                 <div className="text-[#737373] text-sm mt-1">
@@ -41,7 +41,8 @@ export default async function HomePage() {
 
                                 {/* <!-- Buttons --> */}
                                 <div className="w-full flex gap-4 mt-4">
-                                    <Buttons />
+                                    {console.log(event?._id.toString())}
+                                    <Buttons eventId = {event._id.toString()} interested_ids = {event.interested_ids.map(id=>id.toString())}/>
                                 </div>
                             </div>
                         </div>
