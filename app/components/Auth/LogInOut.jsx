@@ -16,7 +16,7 @@ export default function LogInOut() {
       <div>{auth.name} | <a className='cursor-pointer' onClick={logOut}>Logout</a> </div>
 
       :
-      <Link href={"login"}>Login</Link>
+      <Link href={"/login"}>Login</Link>
     
   )
 }

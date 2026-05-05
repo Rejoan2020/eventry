@@ -9,6 +9,7 @@ async function getAllEvents() {
 
 async function getEvent(id) {
     const event = await eventModel.findById(id);
+    console.log("Event details from query : ",id);
     return event;
 }
 
@@ -33,7 +34,7 @@ async function handleInterested(authId, eventId) {
 }
 
 async function handleGoing(eventId, authId) {
-    const event = await eventModel.findById(eventId);
+    const event = await eventModel.findById(eventId); 
     event.going_ids.push(new mongoose.Types.ObjectId(authId));
     await event.save();
 }

@@ -32,7 +32,11 @@ export default async function EventDetails({ id }) {
                     </div>
 
                     <div className="w-full flex gap-4 mt-4 flex-1 ">
-                        <Buttons eventId = {event._id.toString()} interested_ids = {event.interested_ids.map(id=>id.toString())}/>
+                        <Buttons
+                            eventId={event._id.toString()}
+                            interested_ids={event.interested_ids.map(id => id.toString())}
+                            going_ids={event.going_ids.map(id => id.toString())}
+                        />
                     </div>
                 </div>
             </section>
@@ -45,11 +49,11 @@ export default async function EventDetails({ id }) {
                             <div className="my-2 text-[#AEAEAE] space-y-4 prose lg:prose-lg max-w-none">
                                 <p className="">{event.details}</p>
                                 {event.swags && <ul>
-                                    {event.swags.map((item)=>  
+                                    {event.swags.map((item) =>
                                         <li key={item}>{item}</li>
                                     )}
-                                    </ul>
-                                } 
+                                </ul>
+                                }
                             </div>
                         </div>
                     </div>

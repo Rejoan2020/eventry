@@ -41,8 +41,10 @@ export default async function HomePage() {
 
                                 {/* <!-- Buttons --> */}
                                 <div className="w-full flex gap-4 mt-4">
-                                    {console.log(event?._id.toString())}
-                                    <Buttons eventId = {event._id.toString()} interested_ids = {event.interested_ids.map(id=>id.toString())}/>
+                                    <Buttons
+                                        eventId={event._id.toString()}
+                                        interested_ids={event.interested_ids.map(id => id.toString())}
+                                        going_ids={event.going_ids.map(id => id.toString())} />
                                 </div>
                             </div>
                         </div>

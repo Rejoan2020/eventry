@@ -6,16 +6,19 @@ import { interestedFeat } from '../actions';
 import { useAuth } from '../hooks';
 import { useRouter } from 'next/navigation';
 
-export default function Buttons({ eventId, interested_ids }) {
+export default function Buttons({ eventId, interested_ids, going_ids }) {
     const [auth, setAuth] = useAuth();
     const router = useRouter();
     const [pending, startTransition] = useTransition();
     let exist = false;
+    let goingIdExist = false;
     if (auth && interested_ids) exist = interested_ids?.find(id => id.toString() === auth?.id.toString());
+    if (auth && going_ids) goingIdExist = going_ids?.find(id => id.toString() === auth?.id.toString());
     const [isPresent, setIsPresent] = useState(exist);
+    const [isGoing, setIsGoing] = useState(goingIdExist);
+
     const handleInterest = async () => {
-        if (auth) {
-            console.log(isPresent);
+        if (auth) { 
             startTransition(async () => await interestedFeat(auth?.id, eventId.toString()));
             setIsPresent(!isPresent)
         }
@@ -23,7 +26,8 @@ export default function Buttons({ eventId, interested_ids }) {
             router.push('/login')
         }
     }
-    const handleGoing = ()=>{
+    const handleGoing = async ()=>{
+        // if(isGoing) return;
         if(auth){
             router.push(`/payment/${eventId}`);
         }
@@ -33,8 +37,9 @@ export default function Buttons({ eventId, interested_ids }) {
         <>
             <button className={`w-full ${isPresent ? "bg-indigo-600 hover:bg-indigo-600" : ""}`} onClick={handleInterest} >{pending ? 'updating' : 'Interested'}</button>
             <button
-                className="w-full bg-[#464849] py-2 px-2 rounded-md shadow-sm cursor-pointer hover:bg-[#3C3D3D] transition-transform active:translate-y-1 flex items-center justify-center"
+                className={`w-full ${isGoing ? "bg-green-600 hover:bg-green-600" : "bg-[#464849] hover:bg-[#3C3D3D]"} py-2 px-2 rounded-md shadow-sm cursor-pointer transition-transform active:translate-y-1 flex items-center justify-center`}
                 onClick={handleGoing}
+                disabled={auth && isGoing}
             >
                 Going
             </button>
