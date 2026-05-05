@@ -25,7 +25,7 @@ export default function Buttons({ eventId, interested_ids }) {
     }
     const handleGoing = ()=>{
         if(auth){
-            router.push('/payment');
+            router.push(`/payment/${eventId}`);
         }
         else router.push('/login');
     }
