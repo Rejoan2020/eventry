@@ -2,14 +2,21 @@ import { eventModel } from "../models/event-models";
 import { userModel } from "../models/auth-models";
 import mongoose from "mongoose";
 
-async function getAllEvents() {
-    const allEvents = await eventModel.find();
+async function getAllEvents(query) {
+    let allEvents = [];
+    console.log("Query from getAllEvents : ", query);
+    if (query) {
+        const regex = new RegExp(query, 'i');
+        allEvents = await eventModel.find({ name: { $regex: regex } }).lean();
+    } else {
+        allEvents = await eventModel.find().lean();
+    }
     return allEvents;
 }
 
 async function getEvent(id) {
     const event = await eventModel.findById(id);
-    console.log("Event details from query : ",id);
+    console.log("Event details from query : ", id);
     return event;
 }
 
@@ -34,8 +41,8 @@ async function handleInterested(authId, eventId) {
 }
 
 async function handleGoing(eventId, authId) {
-    const event = await eventModel.findById(eventId); 
+    const event = await eventModel.findById(eventId);
     event.going_ids.push(new mongoose.Types.ObjectId(authId));
     await event.save();
 }
-export { getAllEvents, getEvent, createUser, findUserWithCred, handleInterested, handleGoing};
+export { getAllEvents, getEvent, createUser, findUserWithCred, handleInterested, handleGoing };

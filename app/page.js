@@ -1,8 +1,10 @@
 import HomePage from "./components/Landing/HomePage";
 import "./globals.css";
 
-export default function Home() {
+export default async function Home({ searchParams }) {
+  const { query } = await searchParams;
+  console.log("Query from Home : ", query);
   return (
-    <HomePage/>
+    <HomePage query={query} />
   );
 }

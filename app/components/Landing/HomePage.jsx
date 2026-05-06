@@ -3,18 +3,16 @@ import Link from 'next/link';
 import Image from 'next/image';
 import Buttons from '../Buttons';
 import { getAllEvents } from '@/app/db/queries';
+import SearchBar from './SearchBar';
 
-export default async function HomePage() {
-    const events = await getAllEvents();
+export default async function HomePage({query}) {
+    const events = await getAllEvents(query);
     return (
         <div className="py-8 px-8">
             <div className="container">
                 <div className="flex justify-between">
                     <h1 className="font-bold text-3xl">Discover Events</h1>
-                    <div>
-                        <input type="text" placeholder="Search..."
-                            className="bg-[#27292F] border border-[#CCCCCC]/20 py-1 px-2 rounded-md" />
-                    </div>
+                    <SearchBar />
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-8">
