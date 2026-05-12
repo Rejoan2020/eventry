@@ -9,7 +9,7 @@ export default function Navbar() {
             <div className="container flex justify-between items-center py-4">
                 <div className="nav-brand">
                     <Link href="/">
-                        <Image src="/logo.svg" width={150} height={150} alt="Eventry" className="h-11.25" />
+                        <Image src="/Eventry-logo-transparent.png" width={150} height={150} alt="Eventry" className="h-11.25" />
                     </Link>
                 </div>
 
